@@ -1,0 +1,13 @@
+#name of cluster
+cluster_name: "Test Cluster"
+
+#tokens
+#number
+num_tokens: 256
+data_file_directories: ['asasd', 'asdasdsd']
+rpc_server_type: sync
+#my_default_property: "foo"
+#my_uncommented_property: "bar"
+test: 1
+test2: 3
+test3: 5

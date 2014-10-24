@@ -1,0 +1,6 @@
+cluster_name: ["My Cluster"]
+num_tokens: 255
+data_file_directories: ['asasd', 'asdasdsd', ['123', '456']]
+memtable_flush_queue_size: 4
+#my_default_property: "foo"
+my_uncommented_property: "baz"

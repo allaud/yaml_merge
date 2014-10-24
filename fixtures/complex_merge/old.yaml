@@ -1,0 +1,4 @@
+cluster_name_test: "Anton Cluster"
+multithreaded_compaction: false
+endpoint_snitch: SimpleSnitch
+num_tokens: 15

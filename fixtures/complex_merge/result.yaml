@@ -1,0 +1,4 @@
+cluster_name_test: "Anton Cluster"
+request_scheduler: org.apache.cassandra.scheduler.NoScheduler
+num_tokens: 15
+internode_compression: all
