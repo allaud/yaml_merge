@@ -59,5 +59,8 @@ class TestPreserveComments(unittest.TestCase):
     def test_multiline_shifted_comments(self):
         self._compare('multiline_shifted_comments')
 
+    def test_end_comments(self):
+        self._compare('end_comments')
+
 if __name__ == '__main__':
     unittest.main()

@@ -57,6 +57,11 @@ def preserve_comments(old, new, merged):
         elif re.match(r'^\s*$', line):
             comments.append('')
 
+    if len(comments) > 0:
+        tail_comments = "\n" + "\n".join(comments)
+    else:
+        tail_comments = ""
+
     merged_lines = merged.splitlines()
     merged_commented_lines = []
     for line in merged_lines:
@@ -68,7 +73,7 @@ def preserve_comments(old, new, merged):
                 merged_commented_lines = merged_commented_lines + comments
         merged_commented_lines.append(line)
 
-    return old, new, "\n".join(merged_commented_lines)
+    return old, new, "\n".join(merged_commented_lines) + tail_comments
 
 def _choose_value(key, old_value, new_value):
     if type(old_value) == type(new_value):
