@@ -20,7 +20,6 @@ def load_from_comments(text):
         while (len(block_lines) > 0):
             try:
                 block = '\n'.join(block_lines)
-                #print(yaml.load(block.replace('#', '')))
                 result.update(yaml.load(block.replace('#', '')))
                 break
             except Exception as e:
