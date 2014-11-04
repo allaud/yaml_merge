@@ -14,3 +14,4 @@ Usage
                         file to write result
       -n, --no-comments     dont preserve comments
       -a, --ask             ask user promt for confusing values
+      -w, --warn            warn user when uncommenting values
