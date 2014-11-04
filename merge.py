@@ -5,11 +5,12 @@ import re
 from copy import deepcopy
 from collections import OrderedDict
 from optparse import OptionParser
-
 try:
     import rtyaml as yaml
 except ImportError:
     import yaml
+
+from yaml_parser_extended import load_from_comments
 
 
 def read_file(filename):
@@ -23,7 +24,7 @@ def read_file(filename):
     else:
         return l
 
-def merge(old, new, ask_user=False):
+def merge(old, new, ask_user=False, warn_user=False):
     try:
         old_dict = yaml.load(old) or {}
         new_dict = yaml.load(new) or {}
@@ -40,6 +41,15 @@ def merge(old, new, ask_user=False):
             else:
                 value = old_value
         merged.update({key: value})
+
+    data_from_comments = load_from_comments(new)
+    for key, value in data_from_comments.items():
+        old_value = old_dict.get(key)
+        if old_value is None:
+            continue
+        if warn_user:
+            sys.stderr.write("Uncommenting: %s \n" % key)
+        merged.update({key: old_value})
 
     return old, new, yaml.dump(merged)
 
@@ -106,6 +116,12 @@ if __name__ == '__main__':
                       action="store_true",
                       default=False,
                       help="ask user promt for confusing values")
+    parser.add_option("-w", "--warn",
+                      action="store_true",
+                      default=False,
+                      help="warn user when uncommenting values")
+
+
     (options, args) = parser.parse_args()
 
     try:
@@ -114,7 +130,9 @@ if __name__ == '__main__':
         print("only two files are allowed")
         sys.exit(-1)
 
-    old, new, merged = merge(read_file(old_yaml), read_file(new_yaml), ask_user=options.ask)
+    old, new, merged = merge(read_file(old_yaml), read_file(new_yaml),
+                            ask_user=options.ask,
+                            warn_user=options.warn)
 
     if not options.no_comments:
         old, new, merged = preserve_comments(old, new, merged)

@@ -1,6 +1,7 @@
 import unittest
 
 from merge import merge, read_file, preserve_comments
+from yaml_parser_extended import load_from_comments
 import rtyaml as yaml
 
 def get_data(folder):
@@ -36,6 +37,9 @@ class TestMerge(unittest.TestCase):
     def test_preserves_keys_order(self):
         self._compare_fixtures('keys_order')
 
+    def test_commented_lines(self):
+        self._compare_fixtures('commented_lines')
+
 
 class TestPreserveComments(unittest.TestCase):
     def _compare(self, folder):
@@ -61,6 +65,28 @@ class TestPreserveComments(unittest.TestCase):
 
     def test_end_comments(self):
         self._compare('end_comments')
+
+
+class TestExtendedParser(unittest.TestCase):
+    def _get_comments_data(self, name):
+        return load_from_comments(read_file('fixtures/%s/%s.yaml' % (name, name, )))
+
+    def test_empty_comments(self):
+        data = self._get_comments_data('empty_comments')
+        self.assertEqual(data, {})
+
+    def test_simple_line(self):
+        data = self._get_comments_data('parser_simple')
+        self.assertEqual(data, {'test3': 'asdasdsd'})
+
+    def test_multiline(self):
+        data = self._get_comments_data('parser_multiline')
+        self.assertEqual(data.keys(), ['server_encryption_options'])
+
+    def test_multiline_dirty(self):
+        data = self._get_comments_data('parser_multiline_dirty')
+        self.assertEqual(data.keys(), ['server_encryption_options'])
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,5 @@
 #cluster
 cluster_name: My Cluster
+num_tokens: 15
 #number
 #num_tokens: 255

@@ -1,0 +1,7 @@
+test: 123
+#server_encryption_options:
+#    internode_encryption: none
+#    keystore: conf/.keystore
+#    keystore_password: cassandra
+#    truststore: conf/.truststore
+#    truststore_password: cassandra
