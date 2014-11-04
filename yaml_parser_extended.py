@@ -6,26 +6,6 @@ except ImportError:
     import yaml
 
 
-y = """
-test1: 1213123
-test2: asdasdsd
-#test3: asdasdsd
-"""
-
-yy = """
-#dsdf
-#sdsd: 32323
-#dfdfd
-test: 123
-#trash
-#server_encryption_options:
-#    internode_encryption: none
-#    keystore: conf/.keystore
-#    keystore_password: cassandra
-#    truststore: conf/.truststore
-#    truststore_password: cassandra
-"""
-
 def load_from_comments(text):
 
     result = {}
